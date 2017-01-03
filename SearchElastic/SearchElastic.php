@@ -15,24 +15,58 @@ class SearchElastic
     }
 
     public function mapping($params = []){
-        $params = ['index' => 'blog'];
-        if(empty($params)){
-            throw new \Exception("Parameters can't be empty");
-            
-        }
-        $response = $this->elasticclient->indices()->delete($params);
-        
-       $this->elasticclient->indices()->create($params);
+        $map = ['index' => 'blog'];
+        $this->elasticclient->indices()->delete($map);
+        /* Change it according to your needs*/
+        $map = ['index' => 'blog',
+                'body' => [
+                    'mappings' => [
+                        'article' => [
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'integer'
+                                ],
+                                'article_name' => [
+                                    'type' => 'string'
+                                ],
+                                'article_content' => [
+                                    'type' => 'string'
+                                ],
+                                'article_url' => [
+                                    'type' => 'string'
+                                ],
+                                'category_name' => [
+                                    'type' => 'string'
+                                ],
+                                'username' => [
+                                    'type' => 'string'
+                                ],
+                                'date' => [
+                                    'type' => 'date',
+                                    'format' => 'dd-MM-yyyy'
+                                ],
+                                'article_img' => [
+                                    'type' => 'string'
+                                ],
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+       
+       $response =  $this->elasticclient->indices()->create($params);
+       return $response;
        
     }
-    public function insertData($conn,$sql)
+    public function insertData($conn)
     {
         $con    = $conn;
         $client = $this->elasticclient;
+        /* Change the query with your own query to fetch data from database*/
         $stmt   = "SELECT articles.article_id,articles.article_name,articles.article_content,articles.img,articles.url,categories.category_name,CONCAT(users.u_fname,' ',users.u_lname) AS username,DATE_FORMAT(articles.date,'%d-%m-%Y') AS dates FROM article INNER JOIN users ON users.user_id = article.user_Id INNER JOIN articles ON articles.article_id = article.article_id INNER JOIN categories ON categories.category_id = articles.category_id ";
         $result = $con->query($stmt);
         $params = null;
-
+        /*Change the row column names with your own column names*/   
         while ($row = $result->fetch_assoc()) {
             $params['body'][] = array(
                 'index' => array(
@@ -58,14 +92,15 @@ class SearchElastic
 
     }
 
-    public function insertNode($articleid, $con)
+    public function insertNode($id = null, $con)
     {
         $conn   = $con;
         $client = $this->elasticclient;
-        $stmt   = "SELECT articles.article_id,articles.article_name,articles.article_content,articles.img,articles.url,categories.category_name,CONCAT(users.u_fname,' ',users.u_lname) AS username,DATE_FORMAT(articles.date,'%d-%m-%Y') AS dates FROM article INNER JOIN users ON users.user_id = article.user_Id INNER JOIN articles ON articles.article_id = article.article_id INNER JOIN categories ON categories.category_id = articles.category_id WHERE articles.article_id = $articleid";
+        /* Change the query with your own query to fetch data from database*/
+        $stmt   = "SELECT articles.article_id,articles.article_name,articles.article_content,articles.img,articles.url,categories.category_name,CONCAT(users.u_fname,' ',users.u_lname) AS username,DATE_FORMAT(articles.date,'%d-%m-%Y') AS dates FROM article INNER JOIN users ON users.user_id = article.user_Id INNER JOIN articles ON articles.article_id = article.article_id INNER JOIN categories ON categories.category_id = articles.category_id WHERE articles.article_id = $id";
         $result = $con->query($stmt);
         $params = null;
-
+        /*Change the row column names with your own column names*/
         while ($row = $result->fetch_assoc()) {
             $params = [
                 'index' => 'blog',
@@ -87,14 +122,15 @@ class SearchElastic
 
     }
 
-    public function updateNode($articleid, $con)
+    public function updateNode($id = null, $con)
     {
         $conn   = $con;
         $client = $this->elasticclient;
-        $stmt   = "SELECT articles.article_id,articles.article_name,articles.article_content,articles.img,articles.url,categories.category_name,CONCAT(users.u_fname,' ',users.u_lname) AS username,DATE_FORMAT(articles.date,'%d-%m-%Y') AS dates FROM article INNER JOIN users ON users.user_id = article.user_Id INNER JOIN articles ON articles.article_id = article.article_id INNER JOIN categories ON categories.category_id = articles.category_id WHERE articles.article_id = $articleid";
+        /* Change the query with your own query to fetch data from database*/
+        $stmt   = "SELECT articles.article_id,articles.article_name,articles.article_content,articles.img,articles.url,categories.category_name,CONCAT(users.u_fname,' ',users.u_lname) AS username,DATE_FORMAT(articles.date,'%d-%m-%Y') AS dates FROM article INNER JOIN users ON users.user_id = article.user_Id INNER JOIN articles ON articles.article_id = article.article_id INNER JOIN categories ON categories.category_id = articles.category_id WHERE articles.article_id = $id";
         $result = $con->query($stmt);
         $params = null;
-
+        /*Change the row column names with your own column names*/
         while ($row = $result->fetch_assoc()) {
             $params = [
                 'index' => 'blog',
@@ -135,7 +171,7 @@ class SearchElastic
     {
         $client = $this->elasticclient;
         $result = array();
-
+        /* Change the match column name with the column name you want to search in it.*/
         $i = 0;
 
         $params = [

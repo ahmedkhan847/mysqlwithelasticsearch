@@ -1,5 +1,6 @@
 <?php
-require 'vendor/autoload.php';
+require "vendor/autoload.php";
 use SearchElastic\SearchElastic;
 
-$elastic = SearchElastic();
+$elastic = new SearchElastic();
+
