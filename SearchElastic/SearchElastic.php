@@ -58,7 +58,7 @@ class SearchElastic
        return $response;
        
     }
-    public function insertData($conn)
+    public function insertAllData($conn)
     {
         $con    = $conn;
         $client = $this->elasticclient;
