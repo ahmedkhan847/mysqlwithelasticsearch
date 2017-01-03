@@ -1,0 +1,23 @@
+{
+    "name": "ahmed.khan/mysqlwithelasticsearch",
+    "description": "A small package to connect MySQL with Elasticsearch for searching",
+    "keywords": ["mysql with elasticsearch","search in mysql with elasticsearch"],
+    "type": "library",
+    "require": {
+        "elasticsearch/elasticsearch": "2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmed Khan",
+            "email": "ahmedkhan_847@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SearchElastic\\" : "SearchElastic/"
+        }
+    },
+    "version": "1.0.0",
+	"minimum-stability" : "dev"
+}
