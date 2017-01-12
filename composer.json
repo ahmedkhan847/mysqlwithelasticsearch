@@ -1,5 +1,5 @@
 {
-    "name": "ahmed.khan/mysqlwithelasticsearch",
+    "name": "ahmedkhan847/mysqlwithelasticsearch",
     "description": "A small package to connect MySQL with Elasticsearch for searching",
     "keywords": ["mysql with elasticsearch","search in mysql with elasticsearch"],
     "type": "library",
