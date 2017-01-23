@@ -1,1 +1,4 @@
 /vendor/
+index2.php
+/.vscode/
+composer.lock
