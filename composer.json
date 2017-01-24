@@ -1,7 +1,12 @@
 {
     "name": "ahmedkhan847/mysqlwithelasticsearch",
+<<<<<<< HEAD
     "description": "A small package to connect MySQL with Elasticsearch for searching",
     "keywords": ["mysql with elasticsearch","search in mysql with elasticsearch"],
+=======
+    "description": "A small package to connect MySQL with Elasticsearch",
+    "keywords": ["mysql with elasticsearch","search in mysql with elasticsearch","connect mysql with elasticsearch"],
+>>>>>>> release1
     "type": "library",
     "require": {
         "elasticsearch/elasticsearch": "2"
