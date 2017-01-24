@@ -31,4 +31,4 @@ You can find the working example for this repository in these files:
 https://github.com/ahmedkhan847/customcms/blob/master/search.php 
 https://github.com/ahmedkhan847/customcms/blob/master/class/articles.php
 
-If you want contribute, fork **master** branch. 
+If you want contribute, fork **master** branch.
