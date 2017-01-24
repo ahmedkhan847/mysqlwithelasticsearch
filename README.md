@@ -15,6 +15,22 @@ Or use composer to install complete package.
 
 Once the package is install copy the **sample-config.php** file from the vendor folder and rename it to **config.php**.
 
+##Indexing All MySQL data in Elasticsearch
+```php
+<?php
+require "vendor/autoload.php";
+include "config.php";
+use SearchElastic\SearchElastic;
+
+$elastic = new SearchElastic($config);
+$con = new mysqli("localhost","root","","cms");
+$result = $elastic->insertAllData($con);
+
+echo '<pre>';
+print_r($result);
+echo '</pre>';
+```
+
 ##Searching in Elasticsearch
 ```php
 <?php
