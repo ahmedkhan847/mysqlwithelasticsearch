@@ -4,7 +4,7 @@
     "keywords": ["mysql with elasticsearch","search in mysql with elasticsearch","connect mysql with elasticsearch"],
     "type": "library",
     "require": {
-        "elasticsearch/elasticsearch": "2",
+        "elasticsearch/elasticsearch": ">=2",
         "phpunit/phpunit": "5.*"
     },
     "license": "MIT",
@@ -16,7 +16,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "SearchElastic\\" : "SearchElastic/"
+            "SearchElastic\\" : "src/SearchElastic/",
+            "ElasticSearchClient\\" : "src/ElasticSearchClient/"
         }
     },
     "version": "1.0.0",
