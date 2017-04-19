@@ -3,6 +3,8 @@ namespace SearchElastic;
 
 use ElasticSearchClient\ElasticSearchClient;
 use SearchElastic\Exceptions\SyncMySqlExceptions;
+use SearchElastic\PDOConnection;
+use SearchElastic\Connection\Connection;
 
 /**
 * Class to Sync MySQL Database
@@ -13,7 +15,26 @@ class SyncMySql
     private $type = null;
     private $selectQuery = null;
     private $idColumn = 'id';
+    private $con = null;
     
+    /**
+     * Constructor
+     * @void
+     */
+    function __construct() {
+        $this->con = new PDOConnection();
+    }
+
+    /**
+     * Set Database Connection.
+     *
+     * @param  SearchElastic\Connection\Connection  $con
+     * @void
+     */
+    public function setConnection(Connection $con)
+     {
+         $this->con = $con;
+     }
     /**
      * Set Index to Use in Elasticsearch.
      *
