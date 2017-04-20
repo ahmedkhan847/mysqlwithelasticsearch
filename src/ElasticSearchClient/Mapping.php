@@ -8,6 +8,16 @@ use ElasticSearchClient\ElasticSearchClient;
  */
 class Mapping
 {
+    private $client = null;
+
+    /**
+     * Create mapping for Elasticsearch.
+     *
+     * @void \ElasticSearchClient\ElasticSearchClient
+     */
+    function __construct() {
+        $this->client = new ElasticSearchClient;
+    }
     /**
      * Create mapping for Elasticsearch.
      *
@@ -17,7 +27,7 @@ class Mapping
     public function createMapping(array $map)
     {
         try {
-            $elasticclient = ElasticSearchClient::getClient();
+            $elasticclient = $this->client->getClient();
             return  $elasticclient->indices()->create($map);
         } catch (\Exception $ex) {
             return $ex->getMessage();
@@ -33,9 +43,9 @@ class Mapping
     public function deleteMapping($index)
     {
         try {
-            $elasticclient = ElasticSearchClient::getClient();
+            $elasticclient = $this->client->getClient();
             $map = ['index' => $index];
-            return $elasticclient->indices()->delete($map);
+            return $this->client->indices()->delete($map);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

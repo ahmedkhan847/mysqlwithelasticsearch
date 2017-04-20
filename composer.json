@@ -17,9 +17,11 @@
     "autoload": {
         "psr-4": {
             "SearchElastic\\" : "src/SearchElastic/",
-            "ElasticSearchClient\\" : "src/ElasticSearchClient/"
+            "ElasticSearchClient\\" : "src/ElasticSearchClient/",
+            "SyncMySql\\" : "src/SyncMySql/",
+            "MySQLWithElasticsearchExceptions\\" : "src/MySQLWithElasticsearchExceptions/"
         }
     },
-    "version": "1.0.0",
+    "version": "2.0.0",
 	"minimum-stability" : "dev"
 }

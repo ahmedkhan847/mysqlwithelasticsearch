@@ -1,10 +1,10 @@
 <?php
-namespace SearchElastic\Exceptions;
+namespace MySQLWithElasticsearchExceptions;
 
 /**
- * 
+ * Handle exception thrown by Search Elastic
  */
-class SyncMySqlExceptions extends \Exception
+class SearchException extends \Exception
 {
     public function __construct($message, $code = 0, Exception $previous = null)
     {

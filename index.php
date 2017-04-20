@@ -1,8 +1,9 @@
 <?php
 require "vendor/autoload.php";
 
-use SearchElastic\SyncMySQL;
-use SearchElastic\MySQLiConnection;
+use SyncMySql\SyncMySQL;
+use SyncMySql\Connection\MySQLiConnection;
+use SearchElastic\Search;
 // $elastic = new SearchElastic($config);
 // $con = new mysqli("localhost","root","","cms");
 // $result = $elastic->insertAllData($con);
@@ -10,7 +11,7 @@ use SearchElastic\MySQLiConnection;
 // echo '<pre>';
 // print_r(ElasticSearchClient::getClient());
 // echo '</pre>';
-$con = new mysqli('localhost','homestead','homestead','test');
+$con = new mysqli('localhost','root','','laravel');
 $query = "SELECT * FROM users WHERE id = 1";
 $data = [[
     "id" => 1,
@@ -30,15 +31,16 @@ $data = [[
     "design" => "pattern"
 ]
 ];
-$mysqls = new MySQLiConnection();
-$sync = new SyncMySQL();
- $sync->setIndex("abc");
-$sync->setType("asd");
+// $mysqls = new MySQLiConnection();
+// $sync = new SyncMySQL();
+//  $sync->setIndex("abc");
+// $sync->setType("asd");
 // echo $sync->insertAllData($data);
 // echo $sync->insertNode([
 //     "id" => 5,
 //     "name0" => "abc",
 //     "design" => "pattern"
 // ]);
-$sync->setConnection($mysqls);   
-echo print_r($sync->insertAllData($con,"users"));
+// $sync->setConnection($mysqls);   
+$search = new Search();
+echo print_r($search->search("users"));
