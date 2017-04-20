@@ -14,18 +14,18 @@ Or use composer to install complete package.
 
 `composer require ahmedkhan847/mysqlwithelasticsearch:dev-release2`
 
-##What's new in release2?
+## What's new in release2?
 
 In release2 of MySQLWithElasticsearch you don't need to pass $config file to constructor. You can set index, type, sql query, sql connection dyamically. Even now you can create your own function for searching in Elasticsearch. Let's see how you can achieve the following:
 
-* [Mapping in Elasticsearch]()
-* Indexing All MySQL data in Elasticsearch
-* Indexing All MySQL data in Elasticsearch using MySqli Connection
-* Indexing Single Data in Elasticsearch
-* Updating in Elasticsearch
-* Deleting in Elasticsearch
-* Searching in Elasticsearch
-* Creating your own search class for Elasticsearch
+* [Mapping in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#mapping-in-elasticsearch)
+* [Indexing All MySQL data in Elasticsearch]()
+* [Indexing All MySQL data in Elasticsearch using MySqli Connection]()
+* [Indexing Single Data in Elasticsearch]()
+* [Updating in Elasticsearch]()
+* [Deleting in Elasticsearch]()
+* [Searching in Elasticsearch]()
+* [Creating your own search class for Elasticsearch]()
 
 ## Mapping in Elasticsearch
 
@@ -73,7 +73,7 @@ $map = ['index' => 'blog',
 $mapping->createMapping($map);
 ``` 
 
-##Indexing All MySQL data in Elasticsearch
+## Indexing All MySQL data in Elasticsearch
 ```php
 <?php
 require "vendor/autoload.php";
@@ -91,7 +91,7 @@ echo '</pre>';
 ```
 By default it is using **"SELECT * FROM tablename"**, use **'id'** as a default id column for table and elasticsearch. It is using PDO connection to fetch the data by default. If you want elasticsearch to fetch data using mysqli connection you can also use that you just need to set the connection to `SyncMySql\Connection\MySQLiConnection` or write your own by implementing `SyncMySql\Connection`. Also you can change the select query but don't forget to define an id column in it. Let's see how you can do it.
 
-##Indexing All MySQL data in Elasticsearch using MySqli Connection
+## Indexing All MySQL data in Elasticsearch using MySqli Connection
 
 ```php
 <?php
@@ -111,7 +111,7 @@ echo '<pre>';
 print_r($result);
 echo '</pre>';
 ```
-##Indexing Single Data in Elasticsearch
+## Indexing Single Data in Elasticsearch
 ```php
 <?php
 require "vendor/autoload.php";
@@ -147,7 +147,7 @@ echo '<pre>';
 print_r($result);
 echo '</pre>';
 ```
-##Updating in Elasticsearch
+## Updating in Elasticsearch
 ```php
 <?php
 require "vendor/autoload.php";
@@ -163,9 +163,9 @@ echo '<pre>';
 print_r($result);
 echo '</pre>';
 ```
-Using same way you can add your own select query using `setSqlQuery()`.
+Using same technique as we do for insert you can add your own select query using `setSqlQuery()`.
 
-##Deleting data from Elasticsearch
+## Deleting data from Elasticsearch
 ```php
 <?php
 require "vendor/autoload.php";
@@ -181,7 +181,7 @@ print_r($result);
 echo '</pre>';
 ```
 
-##Searching in Elasticsearch
+## Searching in Elasticsearch
 ```php
 <?php
 require "vendor/autoload.php";
@@ -197,7 +197,7 @@ echo '<pre>';
 print_r($result);
 echo '</pre>';
 ```
-##Creating your own search class for Elasticsearch
+## Creating your own search class for Elasticsearch
 
 In order to write your own search you should extends it from `SearchAbstract` class and complete the `public function search($query)` in it. 
 ```php
