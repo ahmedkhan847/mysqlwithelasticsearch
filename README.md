@@ -19,13 +19,13 @@ Or use composer to install complete package.
 In release2 of MySQLWithElasticsearch you don't need to pass $config file to constructor. You can set index, type, sql query, sql connection dyamically. Even now you can create your own function for searching in Elasticsearch. Let's see how you can achieve the following:
 
 * [Mapping in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#mapping-in-elasticsearch)
-* [Indexing All MySQL data in Elasticsearch]()
-* [Indexing All MySQL data in Elasticsearch using MySqli Connection]()
-* [Indexing Single Data in Elasticsearch]()
-* [Updating in Elasticsearch]()
-* [Deleting in Elasticsearch]()
-* [Searching in Elasticsearch]()
-* [Creating your own search class for Elasticsearch]()
+* [Indexing All MySQL data in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#indexing-all-mysql-data-in-elasticsearch)
+* [Indexing All MySQL data in Elasticsearch using MySqli Connection](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#indexing-all-mysql-data-in-elasticsearch-using-mysqli-connection)
+* [Indexing Single Data in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#indexing-single-data-in-elasticsearch)
+* [Updating in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#updating-in-elasticsearch)
+* [Deleting in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#deleting-data-from-elasticsearch)
+* [Searching in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#searching-in-elasticsearch)
+* [Creating your own search class for Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#creating-your-own-search-class-for-elasticsearch)
 
 ## Mapping in Elasticsearch
 
