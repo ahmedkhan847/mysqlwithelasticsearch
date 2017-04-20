@@ -4,43 +4,70 @@ require "vendor/autoload.php";
 use SyncMySql\SyncMySQL;
 use SyncMySql\Connection\MySQLiConnection;
 use SearchElastic\Search;
-// $elastic = new SearchElastic($config);
-// $con = new mysqli("localhost","root","","cms");
-// $result = $elastic->insertAllData($con);
+use ElasticSearchClient\Mapping;
 
-// echo '<pre>';
-// print_r(ElasticSearchClient::getClient());
-// echo '</pre>';
-$con = new mysqli('localhost','root','','laravel');
-$query = "SELECT * FROM users WHERE id = 1";
-$data = [[
-    "id" => 1,
-    "name0" => "abc",
-    "design" => "pattern"
-],[
-    "id" => 3,
-    "name0" => "abc",
-    "design" => "pattern"
-],[
-    "id" => 4,
-    "name0" => "abc",
-    "design" => "pattern"
-],[
-    "id" => 5,
-    "name0" => "abc",
-    "design" => "pattern"
-]
-];
+// $con = new mysqli('localhost','root','','laravel');
+
 // $mysqls = new MySQLiConnection();
-// $sync = new SyncMySQL();
-//  $sync->setIndex("abc");
-// $sync->setType("asd");
-// echo $sync->insertAllData($data);
+$connection = new \PDO('mysql:host=localhost;dbname=laravel;','root', '');
+$sync = new Search();
+$sync->setIndex("blog");
+$sync->setType("user");
+$sync->setSearchColumn("name");
+// $sync->setConnection($mysqls);
+echo print_r($sync->search("ahmed khan"));
+// echo print_r($sync->updateNode($con,'users',21));
 // echo $sync->insertNode([
 //     "id" => 5,
 //     "name0" => "abc",
 //     "design" => "pattern"
 // ]);
-// $sync->setConnection($mysqls);   
-$search = new Search();
-echo print_r($search->search("users"));
+   
+// $search = new Search();
+// $search->setIndex("abc");
+// $search->setType("asd");
+// $search->setSearchColumn("name");
+// echo print_r($search->search("ahmed"));
+
+// $client = new Mapping();
+// // $map=;
+// $mapping = ['index' => 'abc3',
+//             'body' => [
+//             'mappings' => [
+//                             'article' => [
+//                                 'properties' => [
+//                                     'id' => [
+//                                         'type' => 'integer'
+//                                     ],
+//                                     'article_name' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                     'article_content' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                     'article_url' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                     'category_name' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                     'username' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                     'date' => [
+//                                         'type' => 'date',
+//                                         'format' => 'dd-MM-yyyy'
+//                                     ],
+//                                     'article_img' => [
+//                                         'type' => 'string'
+//                                     ],
+//                                 ]
+//                             ]
+//                         ]
+//                     ]
+//             ];
+// echo print_r($client->deleteMapping("abc"));
+
+$connection = new PDO('mysql:host=localhost;dbname=laravel;','root', '');
+
+print_r($connection);

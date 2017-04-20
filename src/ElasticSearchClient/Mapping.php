@@ -15,7 +15,8 @@ class Mapping
      *
      * @void \ElasticSearchClient\ElasticSearchClient
      */
-    function __construct() {
+    public function __construct()
+    {
         $this->client = new ElasticSearchClient;
     }
     /**
@@ -28,7 +29,8 @@ class Mapping
     {
         try {
             $elasticclient = $this->client->getClient();
-            return  $elasticclient->indices()->create($map);
+            $response = $elasticclient->indices()->create($map);
+            return  $response['acknowledged'];
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -45,7 +47,8 @@ class Mapping
         try {
             $elasticclient = $this->client->getClient();
             $map = ['index' => $index];
-            return $this->client->indices()->delete($map);
+            $response = $elasticclient->indices()->delete($map);
+            return $response['acknowledged'];
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

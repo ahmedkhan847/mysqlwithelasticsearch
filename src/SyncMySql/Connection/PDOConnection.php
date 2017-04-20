@@ -18,6 +18,6 @@ class PDOConnection implements Connection
     {
         $stmt = $con->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
