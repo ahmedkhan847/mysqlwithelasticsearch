@@ -9,7 +9,7 @@ Now, run `composer install` to install the required dependencies.
 
 Or use composer to install complete package.
 
-`composer require ahmedkhan847/mysqlwithelasticsearch:dev-release1`
+`composer require ahmedkhan847/mysqlwithelasticsearch:1.*`
 
 Once the package is install copy the **sample-config.php** file from the vendor folder and rename it to **config.php**.
 

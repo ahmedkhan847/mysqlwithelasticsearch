@@ -3,3 +3,4 @@ index2.php
 /.vscode/
 composer.lock
 config.php
+.php_cs.cache

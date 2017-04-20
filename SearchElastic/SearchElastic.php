@@ -1,7 +1,6 @@
 <?php
 namespace SearchElastic;
 
-
 class SearchElastic
 {
     private $elasticclient = null;
@@ -12,22 +11,20 @@ class SearchElastic
     {
         $this->config = $config;
         $this->elasticclient = \Elasticsearch\ClientBuilder::create()->build();
-        
     }
     
     public function deleteMapping($index)
     {
-        try{
+        try {
             $map = ['index' => $index];
             $this->elasticclient->indices()->delete($map);
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
     }
-    public function createMapping(){
-        try{
+    public function createMapping()
+    {
+        try {
             /* Change it according to your needs*/
             $map = ['index' => $this->config['index'],
             'body' => [
@@ -37,15 +34,13 @@ class SearchElastic
             
             $response =  $this->elasticclient->indices()->create($map);
             return $response;
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
     }
     public function insertAllData($conn)
     {
-        try{
+        try {
             $this->checkRowId();
             $con    = $conn;
             $client = $this->elasticclient;
@@ -69,16 +64,14 @@ class SearchElastic
             $responses = $client->bulk($params);
             
             return $responses;
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
     }
     
     public function insertNode($id = null, $con)
     {
-        try{
+        try {
             $this->checkRowId();
             $conn   = $con;
             $client = $this->elasticclient;
@@ -98,18 +91,14 @@ class SearchElastic
             }
             $responses = $client->index($params);
             return $responses;
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
-        
-        
     }
     
     public function updateNode($id = null, $con)
     {
-        try{
+        try {
             $this->checkRowId();
             $conn   = $con;
             $client = $this->elasticclient;
@@ -129,16 +118,14 @@ class SearchElastic
             $responses = $client->update($params);
             
             return $responses;
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
     }
     
     public function deleteNode($id)
     {
-        try{
+        try {
             $client = $this->elasticclient;
             $params = [
             'index' => $this->config['index'],
@@ -147,18 +134,14 @@ class SearchElastic
             ];
             $responses = $client->delete($params);
             return $responses;
-            
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
-        
     }
     
     public function search($query)
     {
-        try{
+        try {
             $client = $this->elasticclient;
             $result = array();
             /* Change the match column name with the column name you want to search in it.*/
@@ -178,28 +161,26 @@ class SearchElastic
             $hit                   = $query['hits']['hits'];
             $result['searchfound'] = $hits;
             while ($i < $hits) {
-                
                 $result['result'][$i] = $query['hits']['hits'][$i]['_source'];
                 
                 $i++;
             }
             
             return  $result;
-        }
-        catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-        
     }
     
-    private function checkRow($row){
-        if(empty($row)){
+    private function checkRow($row)
+    {
+        if (empty($row)) {
             throw new \Exception("Unable to fetch result for the given id");
-            }
+        }
     }
     private function checkRowId()
     {
-        if(isset($this->config['rowid'])){
+        if (isset($this->config['rowid'])) {
             $this->rowid = $this->config['rowid'];
         }
     }
