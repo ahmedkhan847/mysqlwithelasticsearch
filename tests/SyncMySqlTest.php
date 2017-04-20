@@ -20,6 +20,16 @@ class MappingTest extends TestCase
         $this->assertArrayHasKey("took", (array)$sync->insertAllData($connection, "users"));
     }
 
+    public function testInsertAllDataWithDifferentQuery()
+    {
+        $sync = new SyncMySQL();
+        $connection = new \PDO('mysql:host=localhost;dbname=laravel;', 'root', '');
+        $sync->setIndex("blog");
+        $sync->setType("post");
+        $sync->setSqlQuery("SELECT id,title,body FROM posts");
+        $this->assertArrayHasKey("took", (array)$sync->insertAllData($connection, "users"));
+    }
+
     public function testDeleteSingleNode()
     {
         $sync = new SyncMySQL();
@@ -34,7 +44,7 @@ class MappingTest extends TestCase
         $connection = new \PDO('mysql:host=localhost;dbname=laravel;', 'root', '');
         $sync->setIndex("blog");
         $sync->setType("user");
-        $this->assertEquals("created", $sync->insertNode($connection, "users", 21));
+        $this->assertEquals("created", $sync->insertNode($connection, 21, "users"));
     }
 
     public function testUpdateSingleNodeWithMySQLi()
@@ -45,6 +55,6 @@ class MappingTest extends TestCase
         $sync->setType("user");
         $sync->setConnection(new MySQLiConnection());
         //Assert Fails
-        $this->assertEquals("updated", $sync->updateNode($connection, "users", 21));
+        $this->assertEquals("updated", $sync->updateNode($connection, 21,"users"));
     }
 }
