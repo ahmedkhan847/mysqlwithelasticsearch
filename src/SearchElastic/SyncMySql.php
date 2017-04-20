@@ -13,16 +13,18 @@ class SyncMySql
 {
     private $index = null;
     private $type = null;
-    private $selectQuery = null;
+    private $selectQuery = "SELECT * FROM ";
     private $idColumn = 'id';
     private $con = null;
-    
+    private $client = null;
+    private $queryChanged = false;
     /**
      * Constructor
      * @void
      */
     function __construct() {
         $this->con = new PDOConnection();
+        $this->client = ElasticSearchClient::getClient();
     }
 
     /**
@@ -58,7 +60,7 @@ class SyncMySql
     }
 
     /**
-     * Create mapping for Elasticsearch.
+     * Get Index to use in Elasticsearch.
      *
      * @return index
      */
@@ -68,7 +70,7 @@ class SyncMySql
     }
 
     /**
-     * Create mapping for Elasticsearch.
+     * Get Type to use in Elasticsearch.
      *
      * @return type
      */
@@ -89,40 +91,71 @@ class SyncMySql
     }
 
     /**
+     * Set sqlQuery column which will be set as ID in Elasticsearch index
+     *
+     * @param  string  $column
+     * @void
+     */
+    public function setSqlQuery($sqlQuery)
+    {
+        $this->queryChanged = true;
+        $this->selectQuery = $sqlQuery;
+    }
+
+    /**
      * Sync All data of MySQL in Elasticsearch.
      *
-     * @param  array  $allData
+     * @param  $con, $tablename
      * @return \ElasticSearchClient\ElasticSearchClient
      */
-    public function insertAllData(array $allData)
+    public function insertAllData($con, $tableName = null)
     {
-        $this->validate($allData);
-        $client = ElasticSearchClient::getClient();
-        /* Change the query with your own query to fetch data from database*/
-        $params = null;
-        foreach ($allData as $key => $data) {
-            $params['body'][] = array(
-                'index' => array(
-                    '_index' => $this->index,
-                    '_type'  => $this->type,
-                    '_id'    => $data[$this->idColumn],
-                ),
-            );
-            $params['body'][] = $data;
-        }
-        $responses = $client->bulk($params);
-        return $responses;
+        try{
+            $this->validate(['con' => $con, 'tableName' => $tableName]);
+            $query = null;
+            
+            if($this->queryChanged){
+                $query = $this->selectQuery;
+            }else{
+                $query = $this->selectQuery.$tableName;
+            }
+
+            $allData = $this->con->getData($con,$query);
+            
+            $params = null;
+            foreach ($allData as $key => $data) {
+                $params['body'][] = array(
+                    'index' => array(
+                        '_index' => $this->index,
+                        '_type'  => $this->type,
+                        '_id'    => $data[$this->idColumn],
+                    ),
+                );
+                $params['body'][] = $data;
+            }
+            $responses = $this->client->bulk($params);
+            return $responses;
+
+        } catch (\Elasticsearch\Common\Exceptions\NoNodesAvailableException $ex){
+            throw new SyncMySqlExceptions("Check your elasticsearch connetion"); 
+        }       
     }
 
     /**
      * Insert single data in Elasticsearch.
      *
-     * @param  array  $data
+     * @param  $con,$tablename
      * @return \ElasticSearchClient\ElasticSearchClient
      */
-    public function insertNode(array $data)
+    public function insertNode($con,$tableName = null,$insertId)
     {
-        $this->validate($data);
+        $this->validate(['con' => $con, 'tableName' => $tableName, 'insertId' => $insertId]);
+        if($this->queryChanged){
+            $query = $this->selectQuery." WHERE ".$this->idColumn." = ". $insertId;
+        }else{
+            $query = $this->selectQuery.$tableName." WHERE ".$this->idColumn." = ". $insertId;
+        }
+        $data = $this->con->getData($con,$query);
         $client = ElasticSearchClient::getClient();
         $params = [
             'index' => $this->index,
@@ -130,7 +163,7 @@ class SyncMySql
             'id'    => $data[$this->idColumn],
             'body'  => $data
         ];
-        $responses = $client->index($params);
+        $responses = $this->client->index($params);
         return $responses;
     }
 
@@ -140,9 +173,15 @@ class SyncMySql
      * @param  array  $data
      * @return \ElasticSearchClient\ElasticSearchClient
      */
-    public function updateNode(array $data)
+    public function updateNode($con,$tableName = null,$insertId)
     {
-        $this->validate($data);
+        $this->validate(['con' => $con, 'tableName' => $tableName, 'insertId' => $insertId]);
+        if($this->queryChanged){
+            $query = $this->selectQuery." WHERE ".$this->idColumn." = ". $insertId;
+        }else{
+            $query = $this->selectQuery.$tableName." WHERE ".$this->idColumn." = ". $insertId;
+        }
+        $data = $this->con->getData($con,$query);
         $client = ElasticSearchClient::getClient();
         /* Change the query with your own query to fetch data from database*/
         $params = [
@@ -151,7 +190,7 @@ class SyncMySql
             'id'    => $data[$this->idColumn],
             'body'  => ['doc' => $data]
         ];
-        $responses = $client->update($params);
+        $responses = $this->client->update($params);
         return $responses;
     }
 
@@ -163,13 +202,14 @@ class SyncMySql
      */
     public function deleteNode($id)
     {
+        $this->validate();
         $client = ElasticSearchClient::getClient();
         $params = [
             'index' => $this->index,
             'type'  => $this->type,
             'id'    => $id,
         ];
-        $responses = $client->delete($params);
+        $responses = $this->client->delete($params);
         return $responses;
     }
 
@@ -179,18 +219,29 @@ class SyncMySql
      * @param  array  $data
      * @return \ElasticSearchClient\ElasticSearchClient
      */
-    protected function validate($data = null)
+    protected function validate(array $data = null)
     {
+        if($this->client == null){
+            throw new SyncMySqlExceptions("Check if elasticsearch is running on your machine or not");
+        }
         if ($this->getIndex() == null) {
             throw new SyncMySqlExceptions("Index cannot be null");
         }
         if ($this->getType() == null) {
             throw new SyncMySqlExceptions("Type cannot be null");
         }
-        if ($data != null) {
-            if (count($data) == 0) {
-                throw new SyncMySqlExceptions("$data can't be null");
+        if ($data['con'] == null) {
+            throw new SyncMySqlExceptions("Please provide a valid database connection string");
+        }
+        if($this->queryChanged == false){
+            if (empty($data['tableName'])) {
+                throw new SyncMySqlExceptions("Please provide a tablename for SELECT query");
             }
         }
+        if (isset($data['insertId'])) {
+            if (empty($data['insertId'])) {
+                throw new SyncMySqlExceptions("Please provide the last inserted Id");
+            }            
+        }                            
     }
 }

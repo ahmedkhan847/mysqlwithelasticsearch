@@ -1,8 +1,8 @@
 <?php
 require "vendor/autoload.php";
 
-use SearchElastic\Search;
-
+use SearchElastic\SyncMySQL;
+use SearchElastic\MySQLiConnection;
 // $elastic = new SearchElastic($config);
 // $con = new mysqli("localhost","root","","cms");
 // $result = $elastic->insertAllData($con);
@@ -10,7 +10,8 @@ use SearchElastic\Search;
 // echo '<pre>';
 // print_r(ElasticSearchClient::getClient());
 // echo '</pre>';
-
+$con = new mysqli('localhost','homestead','homestead','test');
+$query = "SELECT * FROM users WHERE id = 1";
 $data = [[
     "id" => 1,
     "name0" => "abc",
@@ -29,8 +30,9 @@ $data = [[
     "design" => "pattern"
 ]
 ];
-$sync = new Search();
-$sync->setIndex("abc");
+$mysqls = new MySQLiConnection();
+$sync = new SyncMySQL();
+ $sync->setIndex("abc");
 $sync->setType("asd");
 // echo $sync->insertAllData($data);
 // echo $sync->insertNode([
@@ -38,4 +40,5 @@ $sync->setType("asd");
 //     "name0" => "abc",
 //     "design" => "pattern"
 // ]);
-echo $sync->search("asd");
+$sync->setConnection($mysqls);   
+echo print_r($sync->insertAllData($con,"users"));
