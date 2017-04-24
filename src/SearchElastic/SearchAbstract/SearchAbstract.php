@@ -6,6 +6,7 @@ use MySQLWithElasticsearchExceptions\SearchException;
 
 /**
  * An abstract class for searching in Elasticsearch having an abstract search()
+ * which will be implemented when extending from this class.
  */
 abstract class SearchAbstract
 {

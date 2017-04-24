@@ -4,3 +4,7 @@ index2.php
 composer.lock
 config.php
 .php_cs.cache
+build
+cache
+config.php
+sami.phar
