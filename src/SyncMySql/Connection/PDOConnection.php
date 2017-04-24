@@ -4,7 +4,7 @@ namespace SyncMySql\Connection;
 use SyncMySql\Connection\Connection;
 
 /**
- * Class to handle PDO Object Oriented connection
+ * Class to handle PDO connection
  */
 class PDOConnection implements Connection
 {

@@ -11,9 +11,9 @@ class Mapping
     private $client = null;
 
     /**
-     * Create mapping for Elasticsearch.
+     * Creating client for Elasticsearch.
      *
-     * @void \ElasticSearchClient\ElasticSearchClient
+     * @return void
      */
     public function __construct()
     {

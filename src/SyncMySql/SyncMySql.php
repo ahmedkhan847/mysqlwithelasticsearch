@@ -18,7 +18,7 @@ class SyncMySql
     private $queryChanged = false;
     /**
      * Constructor
-     * @void
+     * @return void
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class SyncMySql
      * Set Database Connection.
      *
      * @param  SearchElastic\Connection\Connection  $con
-     * @void
+     * @return void
      */
     public function setConnection(Connection $con)
     {
@@ -40,7 +40,7 @@ class SyncMySql
      * Set Index to Use in Elasticsearch.
      *
      * @param  string  $index
-     * @void
+     * @return void
      */
     public function setIndex($index)
     {
@@ -51,7 +51,7 @@ class SyncMySql
      * Set Type to use in Elasticsearch
      *
      * @param  string  $type
-     * @void
+     * @return void
      */
     public function setType($type)
     {
@@ -62,7 +62,7 @@ class SyncMySql
      * Set Id column which will be set as ID in Elasticsearch index
      *
      * @param  string  $column
-     * @void
+     * @return void
      */
     public function setIdColumn($column)
     {
@@ -73,7 +73,7 @@ class SyncMySql
      * Set sqlQuery column which will be set as ID in Elasticsearch index
      *
      * @param  string  $column
-     * @void
+     * @return void
      */
     public function setSqlQuery($sqlQuery)
     {

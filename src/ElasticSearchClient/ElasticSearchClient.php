@@ -15,7 +15,7 @@ class ElasticSearchClient
      * Set Index to Use in Elasticsearch.
      *
      * @param  string  $index
-     * @void
+     * @return void
      */
     public function setIndex($index)
     {
@@ -26,7 +26,7 @@ class ElasticSearchClient
      * Set Type to use in Elasticsearch
      *
      * @param  string  $type
-     * @void
+     * @return void
      */
     public function setType($type)
     {
