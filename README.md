@@ -12,7 +12,7 @@ Now, run `composer install` to install the required dependencies.
 
 Or use composer to install complete package.
 
-`composer require ahmedkhan847/mysqlwithelasticsearch:dev-release2`
+`composer require ahmedkhan847/mysqlwithelasticsearch:2.*`
 
 ## What's new in release2?
 
