@@ -8,10 +8,11 @@ use ElasticSearchClient\ElasticSearchClient;
  */
 class Mapping
 {
+    /** @var string|null Should contain the client of Elasticsearch from ElasticsearchClient class */
     private $client = null;
 
     /**
-     * Creating client for Elasticsearch.
+     * Creating $client for Elasticsearch.
      *
      * @return void
      */
@@ -22,7 +23,7 @@ class Mapping
     /**
      * Create mapping for Elasticsearch.
      *
-     * @param  array  $map
+     * @param  array  $map An array of elasticsearch mapping
      * @return \ElasticSearchClient\ElasticSearchClient
      */
     public function createMapping(array $map)
@@ -39,7 +40,7 @@ class Mapping
     /**
      * Delete the previous mapping by passing its name
      *
-     * @param  $index
+     * @param  $index Name of an exisiting index to delete
      * @return \ElasticSearchClient\ElasticSearchClient
      */
     public function deleteMapping($index)

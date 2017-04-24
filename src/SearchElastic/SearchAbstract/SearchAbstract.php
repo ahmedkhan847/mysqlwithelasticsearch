@@ -9,7 +9,9 @@ use MySQLWithElasticsearchExceptions\SearchException;
  */
 abstract class SearchAbstract
 {
+    /** @var string|null Should contain the client of Elasticsearch from ElasticsearchClient class */
     protected $client = null;
+    /** @var string|null Should contain the column name of Elasticsearch in which you like to search */
     protected $searchColumn = null;
 
     public function __construct()
