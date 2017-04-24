@@ -1,6 +1,6 @@
 # Connect MySQL With Elasticsearch
 
-A small library to connect MySQL with Elasticsearch. Use it to sync data and do full text search. Working example for release1 can be found on my article [How To Setup Elasticsearch With MySQL](https://www.cloudways.com/blog/setup-elasticsearch-with-mysql/)
+A small library to connect MySQL with Elasticsearch. Use it to sync data and do full text search. Click here to find the [API documentation for v2](https://ahmedkhan847.github.io/mysqlwithelasticsearch)
 
 # Downloading the latest release
 
