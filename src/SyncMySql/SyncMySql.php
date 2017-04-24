@@ -11,14 +11,20 @@ use SyncMySql\Connection\Connection;
 */
 class SyncMySql
 {
+    /** @var string Default search query */
     private $selectQuery = "SELECT * FROM ";
+    /** @var string Default id columnn for a database table */
     private $idColumn = 'id';
+    /** @var string|null Should contain the instance of Connection class */
     private $con = null;
+    /** @var string|null Should contain the instance of ElasticsearchClient */
     private $client = null;
+    /** @var bool Set true when you use your custom query  */
     private $queryChanged = false;
+    
     /**
      * Constructor
-     * @void
+     * @return void
      */
     public function __construct()
     {
@@ -29,8 +35,8 @@ class SyncMySql
     /**
      * Set Database Connection.
      *
-     * @param  SearchElastic\Connection\Connection  $con
-     * @void
+     * @param  SyncMySql\Connection\Connection  $con
+     * @return void
      */
     public function setConnection(Connection $con)
     {
@@ -40,7 +46,7 @@ class SyncMySql
      * Set Index to Use in Elasticsearch.
      *
      * @param  string  $index
-     * @void
+     * @return void
      */
     public function setIndex($index)
     {
@@ -51,7 +57,7 @@ class SyncMySql
      * Set Type to use in Elasticsearch
      *
      * @param  string  $type
-     * @void
+     * @return void
      */
     public function setType($type)
     {
@@ -62,7 +68,7 @@ class SyncMySql
      * Set Id column which will be set as ID in Elasticsearch index
      *
      * @param  string  $column
-     * @void
+     * @return void
      */
     public function setIdColumn($column)
     {
@@ -70,10 +76,10 @@ class SyncMySql
     }
 
     /**
-     * Set sqlQuery column which will be set as ID in Elasticsearch index
+     * Set sqlQuery to get data from database
      *
-     * @param  string  $column
-     * @void
+     * @param  string  $sqlQuery Select query for database
+     * @return void
      */
     public function setSqlQuery($sqlQuery)
     {

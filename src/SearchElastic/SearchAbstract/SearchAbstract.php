@@ -9,7 +9,9 @@ use MySQLWithElasticsearchExceptions\SearchException;
  */
 abstract class SearchAbstract
 {
+    /** @var string|null Should contain the client of Elasticsearch from ElasticsearchClient class */
     protected $client = null;
+    /** @var string|null Should contain the column name of Elasticsearch in which you like to search */
     protected $searchColumn = null;
 
     public function __construct()
@@ -21,7 +23,7 @@ abstract class SearchAbstract
      * Set Index to Use in Elasticsearch.
      *
      * @param  string  $index
-     * @void
+     * @return void
      */
     public function setIndex($index)
     {
@@ -32,7 +34,7 @@ abstract class SearchAbstract
      * Set Type to use in Elasticsearch
      *
      * @param  string  $type
-     * @void
+     * @return void
      */
     public function setType($type)
     {
@@ -43,7 +45,7 @@ abstract class SearchAbstract
      * Set Search Column to use for search in Elasticsearch
      *
      * @param  string  $value
-     * @void
+     * @return void
      */
     public function setSearchColumn(string $value)
     {
@@ -54,7 +56,7 @@ abstract class SearchAbstract
      * Function to extract Search Result From ElasticSearch
      *
      * @param  $query
-     * @void
+     * @return void
      */
     protected function extractResult($query)
     {
@@ -74,7 +76,7 @@ abstract class SearchAbstract
     /**
     * Function to validate Search
     * @param  string  $query
-     * @void
+     * @return void
     */
     protected function validate($query)
     {

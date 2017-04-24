@@ -4,7 +4,7 @@ namespace SearchElastic;
 use SearchElastic\SearchAbstract\SearchAbstract;
 
 /**
- *  Class to perform basic search
+ *  Class to perform basic search extends from SearchElastic\SearchAbstract\SearchAbstract 
  */
 class Search extends SearchAbstract
 {
@@ -19,7 +19,7 @@ class Search extends SearchAbstract
         $this->validate($query);
         $client = $this->client->getClient();
         $result = array();
-        /* Change the match column name with the column name you want to search in it.*/
+        // Change the match column name with the column name you want to search in it.
         $params = [
                 'index' => $this->client->getIndex(),
                 'type'  => $this->client->getType(),

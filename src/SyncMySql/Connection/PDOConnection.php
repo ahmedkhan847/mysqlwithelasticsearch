@@ -4,14 +4,15 @@ namespace SyncMySql\Connection;
 use SyncMySql\Connection\Connection;
 
 /**
- * Class to handle PDO Object Oriented connection
+ * Class to handle PDO connection
  */
 class PDOConnection implements Connection
 {
     /**
-     * Search in Elasticsearch.
+     * Get Data From Elasticsearch
      *
-     * @param  string $con string  $query
+     * @param string $con Database connection string 
+     * @param string  $query Select query to get data
      * @return Result from database
      */
     public function getData($con, $query)
