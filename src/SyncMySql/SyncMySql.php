@@ -138,7 +138,6 @@ class SyncMySql
         } else {
             $query = $this->selectQuery.$tableName." WHERE ".$this->idColumn." = ". $insertId;
         }
-        die($query);
         $data = $this->con->getData($con, $query);
         $client = ElasticSearchClient::getClient();
         $params = [
