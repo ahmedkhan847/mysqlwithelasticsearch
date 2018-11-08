@@ -75,6 +75,18 @@ abstract class SearchAbstract
     }
 
     /**
+     * Get the total count from a raw result returned by the engine.
+     *
+     * @param  mixed  $results
+     * @return int
+     */
+    public function getTotalCount($results)
+    {
+        return $results['nbHits'];
+    }
+    
+
+    /**
     * Function to validate Search
     * @param  string  $query
      * @return void

@@ -8,3 +8,4 @@ build
 cache
 config.php
 sami.phar
+/.vs/
