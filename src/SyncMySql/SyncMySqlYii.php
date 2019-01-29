@@ -30,7 +30,7 @@ class SyncMySqlYii extends SyncMySql
             $this->validate(['model' => $model]);
             $query = null;
 
-            $allData = $this->con->getData($con, $query);
+            $allData = $this->con->getAllData($model, $query);
             $params = null;
             foreach ($allData as $key => $data) {
                 $params['body'][] = array(
@@ -78,7 +78,7 @@ class SyncMySqlYii extends SyncMySql
      * @param  array  $data
      * @return \ElasticSearchClient\ElasticSearchClient
      */
-    public function updateNode($con, $insertId, $tableName = null)
+    public function updateNode($model)
     {
         $this->validate(['model' => $model]);
         
