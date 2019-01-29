@@ -12,15 +12,15 @@ use SyncMySql\Connection\Connection;
 class SyncMySql
 {
     /** @var string Default search query */
-    private $selectQuery = "SELECT * FROM ";
+    protected $selectQuery = "SELECT * FROM ";
     /** @var string Default id columnn for a database table */
-    private $idColumn = 'id';
+    protected $idColumn = 'id';
     /** @var string|null Should contain the instance of Connection class */
-    private $con = null;
+    protected $con = null;
     /** @var string|null Should contain the instance of ElasticsearchClient */
-    private $client = null;
+    protected $client = null;
     /** @var bool Set true when you use your custom query  */
-    private $queryChanged = false;
+    protected $queryChanged = false;
     
     /**
      * Constructor
