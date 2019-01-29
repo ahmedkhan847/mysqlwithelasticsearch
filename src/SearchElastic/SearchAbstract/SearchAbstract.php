@@ -48,7 +48,7 @@ abstract class SearchAbstract
      * @param  string  $value
      * @return void
      */
-    public function setSearchColumn(string $value)
+    public function setSearchColumn($value)
     {
         $this->searchColumn = $value;
     }
