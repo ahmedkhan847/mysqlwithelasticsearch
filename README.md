@@ -1,6 +1,6 @@
 # Connect MySQL With Elasticsearch using PHP
 
-A small library to connect MySQL with Elasticsearch. Use it to sync data and do full text search. Click here to find the [API documentation for v2](https://ahmedkhan847.github.io/mysqlwithelasticsearch)
+A small library to connect MySQL with Elasticsearch. Use it to sync data and do full text search.
 
 Click here to find the [API documentation for v2](https://ahmedkhan847.github.io/mysqlwithelasticsearch)
 # Downloading the latest release
@@ -17,7 +17,7 @@ Or use composer to install complete package.
 
 ## What's in release2?
 
-In release2 package if fully redesign. Now you don't need to pass $config file to constructor. You can set index, type, sql query, sql connection dyamically. Even now you can create your own function for searching in Elasticsearch. Let's see how you can achieve the following:
+In release2 package is fully redesign. Now you don't need to pass $config file to constructor. You can set index, type, sql query, sql connection dyamically. Even now you can create your own function for searching in Elasticsearch. Let's see how you can achieve the following:
 
 * [Mapping in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#mapping-in-elasticsearch)
 * [Indexing All MySQL data in Elasticsearch](https://github.com/ahmedkhan847/mysqlwithelasticsearch/tree/master#indexing-all-mysql-data-in-elasticsearch)
